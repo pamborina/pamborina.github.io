@@ -1,0 +1,25 @@
+{
+  "name": "حلواني بامبورينا | Pamborina Patisserie",
+  "short_name": "بامبورينا",
+  "description": "منصة الطلب الرسمية لـ حلواني بامبورينا - أشهى الحلويات الشرقية والغربية والمعجنات الفاخرة",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0806",
+  "theme_color": "#0B0806",
+  "dir": "rtl",
+  "lang": "ar",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

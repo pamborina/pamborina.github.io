@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Suppress benign Vite HMR websocket connection errors in cloud sandbox
+      (function() {
+        var OrigWS = window.WebSocket;
+        if (OrigWS) {
+          window.WebSocket = function(url, protocols) {
+            var instance = protocols ? new OrigWS(url, protocols) : new OrigWS(url);
+            instance.addEventListener('error', function(e) {
+              if (e && e.stopImmediatePropagation) e.stopImmediatePropagation();
+            });
+            return instance;
+          };
+          window.WebSocket.prototype = OrigWS.prototype;
+          window.WebSocket.CONNECTING = 0;
+          window.WebSocket.OPEN = 1;
+          window.WebSocket.CLOSING = 2;
+          window.WebSocket.CLOSED = 3;
+        }
+      })();
+
+      window.addEventListener('unhandledrejection', function(event) {
+        var reason = event && event.reason;
+        var msg = reason ? (reason.message || String(reason)) : '';
+        if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('vite') !== -1 || msg.indexOf('closed without opened') !== -1) {
+          event.preventDefault();
+          if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+        }
+      }, true);
+
+      window.addEventListener('error', function(event) {
+        var msg = event && (event.message || '');
+        if (msg.indexOf('WebSocket') !== -1 || msg.indexOf('vite') !== -1 || msg.indexOf('closed without opened') !== -1) {
+          event.preventDefault();
+          if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+        }
+      }, true);
+
+      // GitHub Pages SPA path restoration handler
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>حلواني بامبورينا | Pamborina Patisserie - منصة الطلب الفاخرة</title>
+    <meta name="description" content="منصة الطلب الرسمية لـ حلواني بامبورينا - أشهى الحلويات الشرقية والغربية والمعجنات والمشروبات المخبوزة بكل حب وفخامة في مصر." />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0B0806" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Open Graph / Social Sharing Metadata -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="حلواني بامبورينا | Pamborina Patisserie" />
+    <meta property="og:description" content="منصة الطلب الرسمية لـ حلواني بامبورينا - أرقى الحلويات الشرقية والغربية والتورت الفاخرة والتوصيل السريع." />
+    <meta property="og:image" content="https://i.postimg.cc/85z1XhYk/hero-cake.webp" />
+    <meta property="og:locale" content="ar_EG" />
+    <meta property="og:site_name" content="حلواني بامبورينا" />
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="حلواني بامبورينا | Pamborina Patisserie" />
+    <meta name="twitter:description" content="أشهى الحلويات الشرقية والغربية والمعجنات الفاخرة في مصر." />
+    <meta name="twitter:image" content="https://i.postimg.cc/85z1XhYk/hero-cake.webp" />
+
+    <!-- Favicon & Touch Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <!-- Image CDNs Preconnect for instant high-speed rendering -->
+    <link rel="preconnect" href="https://i.postimg.cc" crossorigin />
+    <link rel="dns-prefetch" href="https://i.postimg.cc" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+
+    <!-- Google Fonts: Cairo, Tajawal & Readex Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Readex+Pro:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#0B0806] text-[#F3EED9] font-sans antialiased selection:bg-[#C89D3C] selection:text-black overflow-x-hidden min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "branch-talbiya",
+    "nameAr": "فرع الطالبية",
+    "name": "فرع الطالبية",
+    "addressAr": "97 شارع عثمان محرم، الطالبية، هرم، الجيزة",
+    "address": "97 شارع عثمان محرم، الطالبية، هرم، الجيزة",
+    "cityAr": "الجيزة",
+    "areaAr": "الطالبية - هرم",
+    "phone": "01121778205",
+    "secondaryPhone": "01062996114",
+    "hotline": "01121778205",
+    "phoneNumbers": ["01121778205", "01062996114"],
+    "whatsapp": "201121778205",
+    "whatsappUrl": "https://wa.me/201121778205",
+    "mapUrl": "https://maps.app.goo.gl/CUz4tnN9Gi6c1awU9",
+    "googleMapsUrl": "https://maps.app.goo.gl/CUz4tnN9Gi6c1awU9",
+    "coordinates": {
+      "lat": 30.0035,
+      "lng": 31.1965
+    },
+    "openingHoursAr": "يومياً من 9:00 صباحاً حتى 2:00 بعد منتصف الليل",
+    "openingHours": "يومياً من 9:00 صباحاً حتى 2:00 بعد منتصف الليل",
+    "isOpen": true,
+    "deliveryEstimateMinutes": 25,
+    "deliveryFee": 0,
+    "minOrderAmount": 50
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "offer-welcome",
+    "titleAr": "خصم 15% على طلبك الأول",
+    "subtitleAr": "أهلاً بك في عالم بامبورينا الفاخر",
+    "descriptionAr": "استمتع بخصم حصري على أول طلب لك عبر المنصة الإلكترونية عند استخدام كود الخصم.",
+    "badgeAr": "ترحيب خاص",
+    "code": "PAMBORINA15",
+    "discountPercentage": 15,
+    "bgColor": "from-[#3D2C1E] to-[#1C140E]",
+    "validUntil": "2026-12-31",
+    "minSpend": 300,
+    "imageKey": "offerBanner"
+  },
+  {
+    "id": "offer-free-delivery",
+    "titleAr": "توصيل مجاني للطلبات الكبيرة",
+    "subtitleAr": "خدمة التوصيل السريع بسيارة مبردة",
+    "descriptionAr": "احصل على توصيل مجاني ملكي عند الشراء بقيمة 750 ج.م أو أكثر لأي مكان في القاهرة والجيزة والسكندرية.",
+    "badgeAr": "توصيل مجاني",
+    "code": "FREEDELIVERY",
+    "bgColor": "from-[#2A1E15] to-[#120D09]",
+    "validUntil": "2026-12-31",
+    "minSpend": 750,
+    "imageKey": "offerBanner2"
+  },
+  {
+    "id": "offer-weekend-box",
+    "titleAr": "عرض العائلة: كنافة + تورتة بسعر خاص",
+    "subtitleAr": "توفير 150 ج.م على تشكيلة نهاية الأسبوع",
+    "descriptionAr": "احصل على بسبوسة الفستق مع تورتة الشوكولاتة الملكية بسعر 850 ج.م بدلاً من 1000 ج.م.",
+    "badgeAr": "توفير 150 ج.م",
+    "bgColor": "from-[#382613] to-[#17100B]",
+    "validUntil": "2026-08-31",
+    "minSpend": 850,
+    "imageKey": "orientalSweets"
+  }
+]

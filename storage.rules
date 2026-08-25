@@ -1,0 +1,33 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null && (
+        ('admin' in request.auth.token && request.auth.token.admin == true) ||
+        request.auth.token.email == 'admin@pamborina.com'
+      );
+    }
+
+    // Products folder: Public read for customers, authenticated admin write/delete only
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow create, update: if isAdmin()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if isAdmin();
+    }
+
+    // General uploads folder (categories, site logos, banners)
+    match /{folder}/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // Default deny for all other files
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

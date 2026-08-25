@@ -1,0 +1,26 @@
+{
+  "id": "app-settings-global-01",
+  "site_name_ar": "حلواني وبامبورينا مصر",
+  "site_name_en": "Pamborina Egypt",
+  "tagline_ar": "فخامة المذاق وأصالة الحلويات والمأكولات الملكية",
+  "currency_ar": "ج.م",
+  "currency_code": "EGP",
+  "vat_rate": 0.14,
+  "free_delivery_threshold": 200,
+  "default_delivery_fee": 30,
+  "tax_number": "489-321-902",
+  "commercial_register": "1049283",
+  "maintenance_mode": false,
+  "contact_phone": "01121778205",
+  "contact_whatsapp": "201121778205",
+  "contact_hotline": "01121778205",
+  "support_email": "support@pamborina-eg.com",
+  "social_links": {
+    "facebook": "https://facebook.com/pamborinasweet",
+    "instagram": "https://instagram.com/pamborinasweet",
+    "tiktok": "https://tiktok.com/@pamborina.sweet",
+    "whatsapp": "https://wa.me/201121778205"
+  },
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-07-26T21:55:00Z"
+}

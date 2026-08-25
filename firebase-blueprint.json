@@ -1,0 +1,189 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Bakery and restaurant product entity in Pamborina catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique product identifier" },
+        "nameAr": { "type": "string", "description": "Product Arabic display name" },
+        "price": { "type": "number", "description": "Unit price in EGP" },
+        "category": { "type": "string", "description": "Category key/name" },
+        "categoryId": { "type": "string", "description": "Normalized category ID" },
+        "imageUrl": { "type": "string", "description": "Primary product image URL" },
+        "isAvailable": { "type": "boolean", "description": "Availability status" },
+        "featured": { "type": "boolean", "description": "Whether product is featured" },
+        "displayOrder": { "type": "number", "description": "Sorting priority index" }
+      },
+      "required": ["id", "nameAr", "price", "isAvailable"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Menu category in Pamborina catalog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique category identifier" },
+        "nameAr": { "type": "string", "description": "Arabic category name" },
+        "nameEn": { "type": "string", "description": "English category name" },
+        "slug": { "type": "string", "description": "URL slug" },
+        "descriptionAr": { "type": "string", "description": "Arabic description" },
+        "imageUrl": { "type": "string", "description": "Category image URL" },
+        "itemCount": { "type": "number", "description": "Count of items in category" },
+        "sortOrder": { "type": "number", "description": "Sorting priority index" }
+      },
+      "required": ["id", "nameAr", "slug"]
+    },
+    "Branch": {
+      "title": "Branch",
+      "description": "Store branch location and operational info",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique branch identifier" },
+        "nameAr": { "type": "string", "description": "Arabic branch name" },
+        "addressAr": { "type": "string", "description": "Arabic street address" },
+        "phone": { "type": "string", "description": "Primary phone" },
+        "whatsapp": { "type": "string", "description": "WhatsApp contact number" },
+        "openingHoursAr": { "type": "string", "description": "Arabic opening hours" },
+        "isOpen": { "type": "boolean", "description": "Whether branch is currently open" },
+        "deliveryFee": { "type": "number", "description": "Delivery fee in EGP" },
+        "minOrderAmount": { "type": "number", "description": "Minimum order amount in EGP" }
+      },
+      "required": ["id", "nameAr", "phone", "isOpen"]
+    },
+    "Setting": {
+      "title": "Setting",
+      "description": "Store configuration and operational parameters",
+      "type": "object",
+      "properties": {
+        "storeNameAr": { "type": "string", "description": "Store name in Arabic" },
+        "phone": { "type": "string", "description": "Store contact phone" },
+        "whatsapp": { "type": "string", "description": "Store WhatsApp number" },
+        "isStoreOpen": { "type": "boolean", "description": "Global store open status" },
+        "announcementTextAr": { "type": "string", "description": "Top banner announcement text" },
+        "announcementEnabled": { "type": "boolean", "description": "Whether announcement is visible" },
+        "defaultDeliveryFee": { "type": "number", "description": "Default delivery fee" },
+        "minOrderAmount": { "type": "number", "description": "Minimum order amount" }
+      }
+    },
+    "AuditLog": {
+      "title": "AuditLog",
+      "description": "Immutable log entry of administrative actions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique log identifier" },
+        "timestamp": { "type": "string", "description": "ISO timestamp of action" },
+        "adminUid": { "type": "string", "description": "UID of admin" },
+        "adminEmail": { "type": "string", "description": "Email of admin" },
+        "action": { "type": "string", "description": "Action type" },
+        "targetType": { "type": "string", "description": "Target entity type" },
+        "targetId": { "type": "string", "description": "Target identifier" },
+        "summaryAr": { "type": "string", "description": "Human-readable Arabic summary" }
+      },
+      "required": ["timestamp", "action", "targetType", "summaryAr"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order entity submitted through checkout",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique order identifier" },
+        "orderNumber": { "type": "string", "description": "Human-readable order sequence number" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "confirmed", "preparing", "ready", "delivered", "cancelled"],
+          "description": "Order processing lifecycle status"
+        },
+        "orderType": {
+          "type": "string",
+          "enum": ["delivery", "pickup"],
+          "description": "Order fulfillment mode"
+        },
+        "items": { "type": "array", "description": "List of ordered items with quantities and pricing" },
+        "pricing": { "type": "object", "description": "Price breakdown including subtotal and total" },
+        "customer": { "type": "object", "description": "Customer contact and address details" },
+        "branch": { "type": "object", "description": "Assigned branch details" },
+        "createdAt": { "type": "string", "description": "ISO timestamp of order placement" }
+      },
+      "required": ["id", "orderNumber", "status", "orderType", "items", "pricing", "customer", "branch", "createdAt"]
+    },
+    "PaperMenuPage": {
+      "title": "PaperMenuPage",
+      "description": "Printed physical paper menu pages",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique page identifier" },
+        "titleAr": { "type": "string", "description": "Page title in Arabic" },
+        "subtitleAr": { "type": "string", "description": "Page subtitle in Arabic" },
+        "descriptionAr": { "type": "string", "description": "Description in Arabic" },
+        "imageUrl": { "type": "string", "description": "Image URL of the page" },
+        "pageNumber": { "type": "number", "description": "Page number sequence" },
+        "sortOrder": { "type": "number", "description": "Display order index" },
+        "isActive": { "type": "boolean", "description": "Whether page is enabled" }
+      },
+      "required": ["id", "titleAr", "imageUrl", "pageNumber"]
+    },
+    "HeroOffer": {
+      "title": "HeroOffer",
+      "description": "Promotional hero banners and flash offers displayed on store homepage",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique offer banner ID" },
+        "titleAr": { "type": "string", "description": "Main title in Arabic" },
+        "subtitleAr": { "type": "string", "description": "Subtitle/Description in Arabic" },
+        "badgeAr": { "type": "string", "description": "Top badge text" },
+        "discountBadgeAr": { "type": "string", "description": "Discount highlight badge" },
+        "trustBadge1Ar": { "type": "string", "description": "First trust badge" },
+        "trustBadge2Ar": { "type": "string", "description": "Second trust badge" },
+        "ctaTextAr": { "type": "string", "description": "Call to action button label" },
+        "imageUrl": { "type": "string", "description": "Background promotional image URL" },
+        "categoryId": { "type": "string", "description": "Target category ID for CTA" },
+        "hasCountdown": { "type": "boolean", "description": "Whether countdown timer is shown" },
+        "countdownType": { "type": "string", "description": "Timer type (daily_recurring or fixed_datetime)" },
+        "countdownHours": { "type": "number", "description": "Timer duration in hours for daily loop" },
+        "countdownEndDateTime": { "type": "string", "description": "ISO end date time for fixed timer" },
+        "countdownLabelAr": { "type": "string", "description": "Label text before countdown digits" },
+        "isActive": { "type": "boolean", "description": "Whether offer is active" },
+        "sortOrder": { "type": "number", "description": "Sorting priority" }
+      },
+      "required": ["id", "titleAr", "imageUrl", "ctaTextAr"]
+    }
+  },
+  "firestore": {
+    "/hero_offers/{offerId}": {
+      "schema": { "$ref": "#/entities/HeroOffer" },
+      "description": "Promotional hero banners and offers readable by customers and managed by store administrators"
+    },
+    "/offers/{offerId}": {
+      "schema": { "$ref": "#/entities/HeroOffer" },
+      "description": "Special offers readable by customers and managed by store administrators"
+    },
+    "/paper_menu_pages/{pageId}": {
+      "schema": { "$ref": "#/entities/PaperMenuPage" },
+      "description": "Printed paper menu pages readable by all customers and managed by store administrators"
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Public bakery catalog items readable by all customers and managed by store administrators"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer orders created during checkout as pending and managed by store administrators"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Store categories readable by customers and managed by administrators"
+    },
+    "/branches/{branchId}": {
+      "schema": { "$ref": "#/entities/Branch" },
+      "description": "Official bakery branch locations and details"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Setting" },
+      "description": "Storewide settings and configuration"
+    },
+    "/auditLogs/{logId}": {
+      "schema": { "$ref": "#/entities/AuditLog" },
+      "description": "Administrative actions audit log"
+    }
+  }
+}
