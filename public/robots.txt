@@ -1,8 +1,0 @@
-# Robots.txt for Pamborina Patisserie Platform
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /api/admin/
-Disallow: /api/ocr/
-
-Sitemap: https://pamborina-app.firebaseapp.com/sitemap.xml
