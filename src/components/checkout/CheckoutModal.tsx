@@ -287,98 +287,53 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             {/* Modal Body */}
             <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 scrollbar-thin scrollbar-thumb-[#3D2C1E]">
               {isSuccess ? (
-                /* SUCCESS VIEW */
+                /* SUCCESS VIEW - Direct Order Received & WhatsApp Redirection */
                 <motion.div
                   initial={{ scale: 0.85, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="py-6 px-4 text-center space-y-5 my-auto max-w-xl mx-auto"
+                  className="py-8 px-4 text-center space-y-6 my-auto max-w-lg mx-auto"
                 >
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: [0, 1.2, 1] }}
                     transition={{ duration: 0.5 }}
-                    className="w-20 h-20 rounded-full bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 p-1 mx-auto shadow-[0_0_40px_rgba(16,185,129,0.5)] flex items-center justify-center"
+                    className="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-600 via-teal-500 to-emerald-400 p-1 mx-auto shadow-[0_0_45px_rgba(16,185,129,0.5)] flex items-center justify-center"
                   >
                     <div className="w-full h-full rounded-full bg-[#160E09] flex items-center justify-center">
-                      <CheckCircle2 className="w-12 h-12 text-emerald-400 stroke-[2]" />
+                      <CheckCircle2 className="w-14 h-14 text-emerald-400 stroke-[2]" />
                     </div>
                   </motion.div>
 
-                  <div className="space-y-2">
-                    <span className="inline-block px-4 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-extrabold text-xs">
-                      تم إرسال الطلب إلى الواتساب بنجاح! 🎉
+                  <div className="space-y-3">
+                    <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-950/90 border border-emerald-500/50 text-emerald-300 font-black text-sm shadow-sm">
+                      تم استلام طلبك وجاري التحضير 🎉
                     </span>
-                    <h3 className="text-2xl font-black text-[#FFF1C5] font-heading">
-                      شكراً لك، {customerName}!
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#FFF1C5] font-heading">
+                      شكراً لك، {customerName || 'عميلنا العزيز'}!
                     </h3>
-                    <p className="text-xs text-[#C8BFB0] max-w-md mx-auto leading-relaxed">
-                      رقم الطلب الخاص بك هو{' '}
-                      <strong className="text-[#F4E08B] font-black text-sm dir-ltr inline-block bg-[#2A1E14] px-2 py-0.5 rounded border border-[#D4AF37]">
-                        {submittedOrder?.orderNumber}
-                      </strong>
-                      . تم فتح الواتساب برقم الفرع للتأكيد والمتابعة.
+                    <p className="text-sm text-[#D8CFB8] max-w-md mx-auto leading-relaxed">
+                      تم استلام طلبك بنجاح وجاري تحضيره في الفرع الآن. يمكنك الانتقال مباشرة لمحادثة الواتساب للتأكيد الفوري والمتابعة.
                     </p>
                   </div>
-
-                  <div className="p-4 rounded-2xl bg-[#1F150D] border border-[#2D2017] space-y-2 text-right">
-                    <div className="flex items-center justify-between text-xs font-bold text-[#FFF1C5]">
-                      <span>نوع الطلب:</span>
-                      <span className="text-[#F4E08B] font-black">
-                        {orderType === 'pickup' ? '🏪 استلام من الفرع' : '🛵 توصيل للمنزل'}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-xs font-bold text-[#FFF1C5]">
-                      <span className="flex items-center gap-1.5">
-                        <Store className="w-4 h-4 text-[#D4AF37]" />
-                        <span>الفرع المختار:</span>
-                      </span>
-                      <span className="text-[#F4E08B] font-black">{chosenBranch?.nameAr}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-xs font-bold text-[#FFF1C5]">
-                      <span>طريقة الدفع:</span>
-                      <span className="text-[#F4E08B] font-bold">
-                        {submittedOrder?.paymentMethodAr || (paymentMethod === 'cod' ? '💵 كاش عند الاستلام' : '📱 فودافون كاش / انستا باي')}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-xs font-bold text-[#FFF1C5]">
-                      <span>الإجمالي النهائي:</span>
-                      <span className="text-[#F4E08B] font-black text-base">{formatPrice(grandTotal)}</span>
-                    </div>
-                  </div>
-
-                  {paymentMethod === 'vodafone_instapay' && (
-                    <div className="p-3.5 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-right space-y-1 text-xs text-amber-200">
-                      <p className="font-extrabold flex items-center gap-1.5">
-                        <Info className="w-4 h-4 text-amber-400 shrink-0" />
-                        <span>تذكير هام لدفع فودافون كاش:</span>
-                      </p>
-                      <p className="text-[11px] leading-relaxed text-amber-100/90">
-                        يرجى إرفاق صورة/لقطة شاشة إشعار التحويل في محادثة الواتساب المفتوحة مع الفرع لتأكيد الطلب وبدء التحضير فوراً.
-                      </p>
-                    </div>
-                  )}
 
                   {whatsappLink && (
                     <a
                       href={whatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
+                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-sm flex items-center justify-center gap-2.5 shadow-[0_10px_30px_rgba(16,185,129,0.4)] hover:shadow-[0_15px_35px_rgba(16,185,129,0.5)] active:scale-[0.98] transition-all cursor-pointer"
                     >
-                      <Send className="w-4 h-4" />
-                      <span>فتح محادثة الواتساب للتأكيد 💬</span>
+                      <Send className="w-5 h-5" />
+                      <span>الانتقال إلى الواتساب لتأكيد الطلب 💬</span>
                     </a>
                   )}
 
                   <button
                     type="button"
                     onClick={handleResetAndClose}
-                    className="w-full py-3 rounded-2xl bg-[#2A1D13] border border-[#3D2C1E] text-[#FFF1C5] text-xs font-bold hover:bg-[#38271A] transition-colors cursor-pointer"
+                    className="w-full py-3.5 rounded-2xl bg-[#2A1D13] border border-[#3D2C1E] text-[#FFF1C5] text-xs font-bold hover:bg-[#38271A] hover:text-white transition-colors cursor-pointer"
                   >
-                    متابعة وتصفح المزيد من الأصناف
+                    تصفح المزيد من الأصناف
                   </button>
                 </motion.div>
               ) : (

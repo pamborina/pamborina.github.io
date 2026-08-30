@@ -120,17 +120,6 @@ export const StickyHeader: React.FC<StickyHeaderProps> = ({
               <Search className="w-4 h-4" />
             </button>
 
-            {/* Order Tracking Button */}
-            {onOpenOrderTracking && (
-              <button
-                onClick={onOpenOrderTracking}
-                className="p-2 sm:p-2.5 rounded-xl bg-[#221710] border border-[#D4AF37]/30 text-[#FFF1C5] hover:text-[#F4E08B] hover:border-[#D4AF37] transition-all active:scale-95 cursor-pointer relative"
-                title="تتبع حالة طلبك"
-              >
-                <Truck className="w-4 h-4 text-[#D4AF37]" />
-              </button>
-            )}
-
             {/* Notifications Button */}
             <button
               onClick={onOpenNotifications}

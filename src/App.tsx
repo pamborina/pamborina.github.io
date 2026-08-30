@@ -43,7 +43,6 @@ import { CategoryProductsView } from './components/category/CategoryProductsView
 import { ProductDetailModal } from './components/product/ProductDetailModal';
 import { CartSheet } from './components/cart/CartSheet';
 import { CheckoutModal } from './components/checkout/CheckoutModal';
-import { OrderTrackingModal } from './components/checkout/OrderTrackingModal';
 import { SecretAdminTrigger } from './components/admin/SecretAdminTrigger';
 
 // Code-split AdminRoute to keep initial customer bundle lightweight
@@ -89,8 +88,6 @@ function MainAppContent() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
-  const [isOrderTrackingOpen, setIsOrderTrackingOpen] = useState(false);
-  const [trackingOrderNumber, setTrackingOrderNumber] = useState<string>('');
 
   // Data States - Pre-loaded with static local data to guarantee instant, fail-safe UI rendering
   const [categories, setCategories] = useState<Category[]>(() => categoriesData as Category[]);
@@ -596,7 +593,6 @@ function MainAppContent() {
           onOpenBranchSelector={() => setIsBranchSelectorOpen(true)}
           onOpenSearch={() => setIsSearchOpen(true)}
           onOpenNotifications={() => setIsNotificationsOpen(true)}
-          onOpenOrderTracking={() => setIsOrderTrackingOpen(true)}
           unreadNotificationsCount={unreadCount}
           activeNavTab={activeNavTab}
           onTabChange={handleTabChange}
@@ -873,17 +869,7 @@ function MainAppContent() {
           storageService.setCart([]);
           const orderNum = orderData?.orderNumber || orderData?.orderId || 'ORD-0001';
           notifyOrderPlaced(orderNum);
-          setTrackingOrderNumber(orderNum);
-          setIsCheckoutOpen(false);
-          setIsOrderTrackingOpen(true);
         }}
-      />
-
-      {/* 13. Real-Time Order Tracking Modal */}
-      <OrderTrackingModal
-        isOpen={isOrderTrackingOpen}
-        onClose={() => setIsOrderTrackingOpen(false)}
-        initialOrderNumber={trackingOrderNumber}
       />
 
       {/* Floating Scroll-To-Top Button */}

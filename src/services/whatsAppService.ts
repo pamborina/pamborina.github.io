@@ -77,87 +77,78 @@ class WhatsAppService {
       ? '🏪 استلام من الفرع (تيك أواي)'
       : '🛵 توصيل للمنزل (دليفري)';
 
-    // Products list formatted with Eastern Arabic numbering (١-، ٢-، ...)
+    // Products list formatted with clear itemization
     const itemsText = payload.items
       .map((item, index) => {
         const arabicNum = this.toArabicDigits(index + 1);
         const variantSuffix = item.variantNameAr ? ` (${item.variantNameAr})` : '';
 
-        let block = `${arabicNum}- ${item.nameAr}${variantSuffix} ×${item.quantity}`;
+        let block = `🔹 *${arabicNum}- ${item.nameAr}${variantSuffix}*\n   ▫️ الكمية: ${item.quantity}\n   ▫️ السعر: ${item.totalPrice} ج.م`;
 
         if (item.addons && item.addons.length > 0) {
-          block += `\nإضافات:\n${item.addons.map((a) => `• ${a}`).join('\n')}`;
+          block += `\n   ▫️ الإضافات: ${item.addons.join(' + ')}`;
         }
 
         if (item.notes && item.notes.trim()) {
-          block += `\nملاحظات:\n${item.notes.trim()}`;
+          block += `\n   ▫️ ملاحظات الصنف: ${item.notes.trim()}`;
         }
-
-        block += `\nالسعر:\n${item.totalPrice} جنيه`;
 
         return block;
       })
-      .join('\n\n------------------\n\n');
+      .join('\n\n');
 
     let addressSection = '';
     if (payload.orderType === 'pickup') {
-      addressSection = `مكان الاستلام:\nاستلام مباشر من ${payload.branchNameAr}`;
+      addressSection = `📍 *مكان الاستلام:* استلام مباشر من فرع (${payload.branchNameAr})`;
     } else {
       const fullAddress = payload.landmark && payload.landmark.trim()
-        ? `${payload.address.trim()} (أقرب علامة: ${payload.landmark.trim()})`
+        ? `${payload.address.trim()} (علامة مميزة: ${payload.landmark.trim()})`
         : payload.address.trim();
 
       const locationSection = payload.locationUrl && payload.locationUrl.trim()
-        ? `\nالموقع على الخريطة:\n${payload.locationUrl.trim()}`
+        ? `\n🗺️ *رابط الموقع (GPS):* ${payload.locationUrl.trim()}`
         : '';
 
-      addressSection = `العنوان:\n${fullAddress}${locationSection}`;
+      addressSection = `📍 *العنوان:* ${fullAddress}${locationSection}`;
     }
 
     const deliveryFeeLabel = payload.orderType === 'pickup'
       ? 'استلام من الفرع (مجاناً)'
-      : 'يتم تحديده بواسطة الفرع عبر الواتساب (حسب المسافة والمنطقة)';
+      : (payload.deliveryFee > 0 ? `${payload.deliveryFee} ج.م` : 'يحددها الفرع حسب المنطقة والمسافة');
 
-    const totalLabel = payload.orderType === 'pickup'
-      ? `${payload.grandTotal} جنيه`
-      : `${payload.grandTotal} جنيه (+ رسوم التوصيل يحددها الفرع عبر الواتساب)`;
+    let discountLine = '';
+    if (payload.discountAmount && payload.discountAmount > 0) {
+      discountLine = `\n🎁 *الخصم:* -${payload.discountAmount} ج.م`;
+    }
 
-    const message = `طلب جديد
+    let notesLine = '';
+    if (payload.notes && payload.notes.trim()) {
+      notesLine = `\n📝 *ملاحظات العميل:* ${payload.notes.trim()}`;
+    }
 
-رقم الطلب:
-${payload.orderNumber}
-
-نوع الطلب:
-${orderTypeLabel}
-
-الفرع:
-${payload.branchNameAr}
-
-الوقت:
-${formattedDate} ${formattedTime}
-
-الاسم:
-${payload.customerName.trim()}
-
-الهاتف:
-${payload.customerPhone.trim()}
-
+    const message = `🍰 *طلب جديد من متجر بامبورينا* 🍰
+━━━━━━━━━━━━━━━━━━
+🧾 *رقم الطلب:* ${payload.orderNumber}
+📅 *التاريخ:* ${formattedDate} (${formattedTime})
+🏪 *الفرع:* ${payload.branchNameAr}
+🛵 *نوع الطلب:* ${orderTypeLabel}
+━━━━━━━━━━━━━━━━━━
+👤 *بيانات العميل:*
+▪️ *الاسم:* ${payload.customerName.trim()}
+▪️ *الهاتف:* ${payload.customerPhone.trim()}
 ${addressSection}
-
-المنتجات
+━━━━━━━━━━━━━━━━━━
+🛍️ *تفاصيل المنتجات:*
 
 ${itemsText}
-
-------------------
-
-طريقة الدفع:
-${payload.paymentMethodAr || 'الدفع عند الاستلام'}
-
-رسوم التوصيل:
-${deliveryFeeLabel}
-
-إجمالي الأصناف:
-${totalLabel}`;
+━━━━━━━━━━━━━━━━━━
+💰 *تفاصيل الحساب:*
+▫️ *إجمالي المنتجات:* ${payload.subtotal} ج.م
+▫️ *رسوم التوصيل:* ${deliveryFeeLabel}${discountLine}
+▫️ *المبلغ الإجمالي:* *${payload.grandTotal} ج.م*
+▫️ *طريقة الدفع:* ${payload.paymentMethodAr || 'الدفع عند الاستلام'}${notesLine}
+━━━━━━━━━━━━━━━━━━
+✨ *يرجى تأكيد الطلب لبدء التحضير والتجهيز فوراً* ✨`;
 
     return message;
   }
@@ -203,7 +194,20 @@ ${totalLabel}`;
     const whatsappUrl = this.generateWhatsAppUrl(targetPhone, message);
 
     if (typeof window !== 'undefined') {
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      try {
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isMobile) {
+          window.location.href = whatsappUrl;
+        } else {
+          const newWindow = window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+          if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+            window.location.href = whatsappUrl;
+          }
+        }
+      } catch (e) {
+        console.warn('⚠️ [WhatsApp] Auto-redirect fallback:', e);
+        window.location.href = whatsappUrl;
+      }
     }
 
     return whatsappUrl;
