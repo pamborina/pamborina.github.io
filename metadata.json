@@ -1,0 +1,6 @@
+{
+  "name": "Pamborina Ordering Platform",
+  "description": "منصة الطلب الإلكترونية الفاخرة لـ حلواني بامبورينا - Pamborina Patisserie",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

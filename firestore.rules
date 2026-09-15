@@ -1,0 +1,179 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ----------------------------------------------------
+    // Authentication & RBAC Helper Functions
+    // ----------------------------------------------------
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Direct Admin verification via custom claim, token role, or designated super admin email
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.admin == true ||
+        request.auth.token.role == 'admin' ||
+        request.auth.token.email in [
+          'admin@pamborina.com',
+          'mentalitym254@gmail.com'
+        ] ||
+        request.auth.token.email.matches('.*@pamborina[.]com$')
+      );
+    }
+
+    function getUserDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function hasUserDoc() {
+      return isAuthenticated() && exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    function isStaffActive() {
+      return isAdmin() || (hasUserDoc() && getUserDoc().data.isActive == true);
+    }
+
+    // Dynamic Permission Check evaluated against Firestore user profile or Admin token
+    function hasPermission(perm) {
+      return isAdmin() || (
+        isStaffActive() && (
+          perm in getUserDoc().data.permissions ||
+          '*' in getUserDoc().data.permissions
+        )
+      );
+    }
+
+    // ----------------------------------------------------
+    // User Accounts & RBAC Profiles Collection
+    // ----------------------------------------------------
+    match /users/{userId} {
+      // Users can read their own profile; Admins can read all profiles
+      allow read: if isAdmin() || (isAuthenticated() && request.auth.uid == userId);
+      // Only Super Admins can create, update, or delete system user accounts
+      allow write: if isAdmin();
+    }
+
+    // ----------------------------------------------------
+    // Categories Collection
+    // ----------------------------------------------------
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if hasPermission('categories.manage');
+    }
+
+    // ----------------------------------------------------
+    // Products Collection
+    // ----------------------------------------------------
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if hasPermission('products.create');
+      allow update: if hasPermission('products.edit') || hasPermission('products.toggle_availability');
+      allow delete: if hasPermission('products.delete');
+    }
+
+    // ----------------------------------------------------
+    // Branches Collection
+    // ----------------------------------------------------
+    match /branches/{branchId} {
+      allow read: if true;
+      allow write: if hasPermission('branches.manage');
+    }
+
+    // ----------------------------------------------------
+    // Settings Collection & Order Sequences
+    // ----------------------------------------------------
+    match /settings/delivery {
+      allow read: if true;
+      allow write: if hasPermission('settings.manage') || hasPermission('branches.manage');
+    }
+
+    match /settings/video_section {
+      allow read: if true;
+      allow write: if hasPermission('settings.manage');
+    }
+
+    match /settings/orderSequences {
+      allow read: if true;
+      allow write: if hasPermission('orders.reset') || isAdmin() || (
+        request.resource.data.resetting == false &&
+        (!resource.data.keys().hasAny(['resetting']) || resource.data.resetting == false)
+      );
+    }
+
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if hasPermission('settings.manage');
+    }
+
+    // ----------------------------------------------------
+    // Delivery Drivers Collection
+    // ----------------------------------------------------
+    match /drivers/{driverId} {
+      allow read: if true;
+      allow write: if hasPermission('drivers.manage');
+    }
+
+    // ----------------------------------------------------
+    // Videos Collection
+    // ----------------------------------------------------
+    match /videos/{videoId} {
+      allow read: if true;
+      allow write: if hasPermission('settings.manage');
+    }
+
+    // ----------------------------------------------------
+    // Hero Offers & Menus & Paper Menu Pages
+    // ----------------------------------------------------
+    match /offers/{offerId} {
+      allow read: if true;
+      allow write: if hasPermission('offers.manage');
+    }
+    match /hero_offers/{offerId} {
+      allow read: if true;
+      allow write: if hasPermission('offers.manage');
+    }
+    match /menus/{menuId} {
+      allow read: if true;
+      allow write: if hasPermission('products.edit') || hasPermission('categories.manage');
+    }
+    match /paper_menu_pages/{pageId} {
+      allow read: if true;
+      allow write: if hasPermission('paper_menu.manage');
+    }
+
+    // ----------------------------------------------------
+    // Orders Collection
+    // ----------------------------------------------------
+    match /orders/{orderId} {
+      allow read: if true;
+      allow create: if request.resource.data.items is list && request.resource.data.items.size() > 0;
+      allow update: if hasPermission('orders.update_status') || hasPermission('orders.edit');
+      allow delete: if hasPermission('orders.delete') || hasPermission('orders.bulk_delete');
+    }
+
+    // ----------------------------------------------------
+    // Audit Logs Collection
+    // ----------------------------------------------------
+    match /auditLogs/{logId} {
+      allow read: if hasPermission('audit.view');
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // ----------------------------------------------------
+    // Archived Orders Collection
+    // ----------------------------------------------------
+    match /archivedOrders/{orderId} {
+      allow read: if hasPermission('orders.view');
+      allow write: if hasPermission('orders.reset') || isAdmin();
+    }
+
+    // ----------------------------------------------------
+    // Default Fallback Rule
+    // ----------------------------------------------------
+    match /{document=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

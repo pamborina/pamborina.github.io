@@ -1,0 +1,203 @@
+[
+  {
+    "category": "ركن الألبان والرز باللبن",
+    "items": [
+      {
+        "name": "رز باللبن",
+        "price": 30,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "رز باللبن نوتيلا",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "رز باللبن لوتس",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "رز باللبن مكسرات",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "رز باللبن قشطة ومكسرات",
+        "price": 45,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "رز باللبن مانجو",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "طاجن نوتيلا",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "أم علي",
+        "price": 35,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "أم علي نوتيلا",
+        "price": 45,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "أم علي لوتس",
+        "price": 45,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "أم علي قشطة ومكسرات",
+        "price": 50,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "طاجن لوتس",
+        "price": 45,
+        "description": "",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "category": "ركن القشطة (قشطوطة)",
+    "items": [
+      {
+        "name": "قشطوطة سادة",
+        "price": 60,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "قشطوطة لوتس",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "قشطوطة مانجو",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "قشطوطة نوتيلا",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "قشطوطة مكسرات",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "قشطوطة فراولة",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "قشطوطة مربى حليب",
+        "price": 70,
+        "description": "",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "category": "الديسباسيتو والحلو بالكوب والكاب",
+    "items": [
+      {
+        "name": "ديسباسيتو نوتيلا",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "ديسباسيتو لوتس",
+        "price": 75,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "ترايفل",
+        "price": 25,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "كنافة مانجو كبير",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "كنافة مانجو صغير",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "كنافة لوتس",
+        "price": 75,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "كنافة نوتيلا",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "كاب كيك",
+        "price": 40,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "مولتن كيك نوتيلا",
+        "price": 65,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "مولتن كيك لوتس",
+        "price": 70,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "موس الشوكولاتة",
+        "price": 38,
+        "description": "",
+        "image": ""
+      },
+      {
+        "name": "فادج كيك",
+        "price": 38,
+        "description": "",
+        "image": ""
+      }
+    ]
+  }
+]
