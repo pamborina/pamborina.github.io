@@ -1,0 +1,50 @@
+[
+  {
+    "id": "del-zone-001",
+    "branch_id": "branch-faisal-20",
+    "zone_name_ar": "فيصل (شارع العشرين والمناطق المجاورة)",
+    "zone_name_en": "Faisal - 20th Street Area",
+    "estimated_minutes": 20,
+    "delivery_fee": 15,
+    "min_order_amount": 50,
+    "free_delivery_threshold": 200,
+    "is_active": true,
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "del-zone-002",
+    "branch_id": "branch-faisal-20",
+    "zone_name_ar": "المساحة والهرم وعثمان محرم",
+    "zone_name_en": "Haram & Osman Moharram Area",
+    "estimated_minutes": 25,
+    "delivery_fee": 20,
+    "min_order_amount": 60,
+    "free_delivery_threshold": 200,
+    "is_active": true,
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "del-zone-003",
+    "branch_id": "branch-talbiya-haram",
+    "zone_name_ar": "الطالبية والعريش والتعاون",
+    "zone_name_en": "Talbiya & Al Arish Area",
+    "estimated_minutes": 25,
+    "delivery_fee": 20,
+    "min_order_amount": 60,
+    "free_delivery_threshold": 200,
+    "is_active": true,
+    "created_at": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "del-zone-004",
+    "branch_id": "branch-faisal-20",
+    "zone_name_ar": "حدائق الأهرام والرماية",
+    "zone_name_en": "Hadayek Al Ahram & Remaya",
+    "estimated_minutes": 35,
+    "delivery_fee": 30,
+    "min_order_amount": 100,
+    "free_delivery_threshold": 300,
+    "is_active": true,
+    "created_at": "2026-01-01T00:00:00Z"
+  }
+]

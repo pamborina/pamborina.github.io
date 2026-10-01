@@ -1,0 +1,64 @@
+[
+  {
+    "id": "combo-001",
+    "combo_id": "c101-bamborina-family",
+    "titleAr": "بوكس عائلة بامبورينا السوبر",
+    "titleEn": "Pamborina Super Family Box",
+    "descriptionAr": "2 برجر سوبر ملكي + 2 كريب نوتيلا + 1 كشري مانجو حلو + 2 بيبسي كانز",
+    "price": 380,
+    "originalPrice": 470,
+    "savingsAmount": 90,
+    "badgeAr": "توفير 90 ج.م",
+    "isAvailable": true,
+    "is_active": true,
+    "branch_id": "branch-faisal-20",
+    "product_ids": [
+      "prod-burger-classic-royal",
+      "prod-crepe-nutella-banana",
+      "prod-koshary-sweet-mango"
+    ],
+    "created_at": "2026-03-01T00:00:00Z",
+    "imageKey": "combo1"
+  },
+  {
+    "id": "combo-002",
+    "combo_id": "c102-weekend-sweet-party",
+    "titleAr": "بوكس السعادة الشرقية (كنافة + قشطوطة)",
+    "titleEn": "Oriental Happiness Sweet Box",
+    "descriptionAr": "صينية كنافة بالنوتيلا والمانجو + 2 طاجن قشطوطة مكسرات + 2 عصير مانجو فريش",
+    "price": 310,
+    "originalPrice": 390,
+    "savingsAmount": 80,
+    "badgeAr": "الأكثر طلبًا",
+    "isAvailable": true,
+    "is_active": true,
+    "branch_id": "branch-faisal-20",
+    "product_ids": [
+      "prod-kunafa-mango-cream",
+      "prod-sweets-qashtouta-lotus",
+      "prod-drink-mango-fresh"
+    ],
+    "created_at": "2026-03-01T00:00:00Z",
+    "imageKey": "combo2"
+  },
+  {
+    "id": "combo-003",
+    "combo_id": "c103-burger-frenshawi-duo",
+    "titleAr": "عرض الثنائي المقرمش",
+    "titleEn": "Crispy Duo Combo Box",
+    "descriptionAr": "1 برجر فرايد تشيكن مقرمش + 1 ساندوتش فرنسشاوي دجاج + بطاطس حجم عائلي + 2 صوص شيدر",
+    "price": 245,
+    "originalPrice": 295,
+    "savingsAmount": 50,
+    "badgeAr": "توفير 50 ج.م",
+    "isAvailable": true,
+    "is_active": true,
+    "branch_id": "branch-talbiya-haram",
+    "product_ids": [
+      "prod-burger-crispy-chicken",
+      "prod-sandwich-frenshawi-chicken"
+    ],
+    "created_at": "2026-03-01T00:00:00Z",
+    "imageKey": "combo3"
+  }
+]
